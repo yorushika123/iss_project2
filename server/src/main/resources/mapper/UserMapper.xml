@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.jxnu.dao.UserMapper">
+
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select  count(*) from users  where username=#{username} and password=#{password}
+    </select>
+
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+        WHERE username = #{username}
+    </select>
+
+    <select id="findUserByNameL" parameterType="java.lang.String" resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+        WHERE username = #{username}
+    </select>
+
+    <select id="findUserByNumber" parameterType="java.lang.String" resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+        WHERE studentnumber = #{studentnumber}
+    </select>
+
+    <select id="findUserByNumberL" parameterType="java.lang.String" resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+        WHERE studentnumber = #{studentnumber}
+    </select>
+
+    <select id="findUserBySchool"  resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+        WHERE professional = #{professional}
+    </select>
+
+    <insert id="addUser"  parameterType="java.lang.String" >
+        insert into users (username,password,professional,phoneNumber,avatar,studentnumber) values(#{username},#{password},#{professional},#{phoneNumber},#{avatar},#{studentnumber})
+    </insert>
+
+    <select id="findAllUser"  resultType="com.javaclimb.jxnu.domain.User">
+        SELECT *
+        FROM users
+    </select>
+
+    <select id="select" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+        from users
+        where studentnumber = #{studentnumber} and professional = #{professional} and studentnumber = #{studentnumber}
+    </select>
+    <select id="select1" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+      from users
+     where 1=1
+    <if test="professional!='%%'">
+     and professional like #{professional}
+     </if>
+        <if test="studentnumber!='%%'">
+            and studentnumber like #{studentnumber}
+        </if>
+        <if test="username!='%%'">
+            and username like #{username}
+        </if>
+    </select>
+
+    <delete id="deleteUserByName">
+        delete from users where username=#{username}
+    </delete>
+
+    <update id="changeState" parameterType="java.lang.String">
+        update users
+        set state=1
+        where username=#{username}
+    </update>
+
+    <update id="changeState2" parameterType="java.lang.String">
+        update users
+        set state=0
+        where username=#{username}
+    </update>
+
+    <select id="login" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+        from users
+        where studentnumber=#{studentnumber} and password=#{password}
+    </select>
+
+    <update id="changeStatus" >
+        update users
+        set status=#{status}
+        where id=#{id}
+    </update>
+
+
+
+
+
+
+    <delete id="deleteUserByID">
+        delete from users
+        where id=#{id}
+    </delete>
+    <delete id="deleteReportByID1">
+        delete from report
+        where report_id=#{id}
+    </delete>
+    <delete id="deleteReportByID2">
+        delete from report
+        where reported_id=#{id}
+    </delete>
+    <delete id="deleteinterlocutionByID1">
+        delete from interlocution
+        where creater_id=#{id}
+    </delete>
+    <delete id="deleteinterlocutionByID2">
+        delete from interlocution
+        where experts_id=#{id}
+    </delete>
+    <delete id="deletecommentByID">
+        delete from comments
+        where user_id=#{id}
+    </delete>
+    <delete id="deletecommentnextByID">
+        delete from comments_next
+        where user_id=#{id}
+    </delete>
+    <delete id="deletepostByID">
+        delete from post
+        where author_id=#{id}
+    </delete>
+
+
+</mapper>

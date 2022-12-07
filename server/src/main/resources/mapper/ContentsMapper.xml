@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.jxnu.dao.ContentsMapper">
+    <insert id="addOrUpdate" >
+        insert into contents (articleTitle,articleContentHtml,articleContentMd,articleAbstract,articleCover,create_time) values(#{articleTitle},#{articleContentHtml},#{articleContentMd},#{articleAbstract},#{articleCover},#{create_time})
+    </insert>
+    <insert id="addPost">
+        insert into post ( post_title, img, author_id, content_id) values(#{post_title},#{img},#{author_id},#{content_id})
+
+    </insert>
+    <select id="findById" resultType="com.javaclimb.jxnu.domain.Contents"></select>
+    <select id="selectID" resultType="com.javaclimb.jxnu.domain.Contents">
+        select *
+from contents
+where articleTitle=#{articleTitle} and articleContentHtml=#{articleContentHtml} and articleContentMd=#{articleContentMd}
+    </select>
+</mapper>

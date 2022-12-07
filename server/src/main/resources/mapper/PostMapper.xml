@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.jxnu.dao.PostMapper">
+    <update id="UpdateGood">
+        update post
+set up_counts=#{up_counts}
+ where id=#{id}
+    </update>
+    <delete id="deletePostByID">
+        delete from post where id = #{id}
+    </delete>
+
+    <delete id="deletePostByTitle">
+        delete from post where post_title = #{post_title}
+    </delete>
+    <select id="findPostByTitle"  resultType="com.javaclimb.jxnu.domain.Post">
+        SELECT *
+        FROM post
+        WHERE post_title = #{post_title}
+    </select>
+
+    <select id="findPostByTitleL"  resultType="com.javaclimb.jxnu.domain.Post">
+        SELECT *
+        FROM post
+        WHERE post_title like concat('%',#{post_title},'%')
+    </select>
+
+    <select id="findPostByAuthor"  resultType="com.javaclimb.jxnu.domain.Post">
+        SELECT *
+        FROM post
+        WHERE author_name = #{author_name}
+    </select>
+
+    <select id="findPostByAuthorL"  resultType="com.javaclimb.jxnu.domain.Post">
+        SELECT *
+        FROM post
+        WHERE author_name like concat('%',#{author_name},'%')
+    </select>
+
+    <select id="findAllPost" resultType="map">
+        SELECT  DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s')create_time,post.*,users.*
+        FROM post,users
+        where post.author_id=users.id
+        ORDER BY create_time desc
+    </select>
+    <insert id="addPost" >
+        insert into post (post_title,author_id,up_counts,img,comment_counts,view_counts) values(#{post_title},#{author_id},#{up_counts},#{img},#{comment_counts},#{view_counts})
+    </insert>
+
+    <insert id="addReply">
+        insert into comments_next (comments_id,contents,user_id) values (#{comments_id},#{contents}, #{user_id})
+    </insert>
+
+    <select id="select" resultType="map">
+        SELECT DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s')create_time,post.*,users.*
+        FROM post,users
+        <where>
+            <if test="post_title!=null">
+                and post_title like concat('%',#{post_title},'%')
+            </if>
+            <if test="author_name!=null and author_name!=''">
+                and username like concat('%',#{author_name},'%')
+            </if>
+            and post.author_id=users.id
+        </where>
+
+        <if test="sort!=null and sort!='' and sort=='正序'  ">
+            order by create_time
+        </if>
+
+        <if test="sort!=null and sort!='' and sort=='倒序'  ">
+            order by create_time desc
+        </if>
+    </select>
+
+    <select id="findContentID" resultType="com.javaclimb.jxnu.domain.Contents">
+        select *
+        from contents
+        where id in(
+            select content_id
+            from post
+            where id=#{post_id}
+        )
+    </select>
+    <select id="findAuthorID" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+        from users
+        where id in(
+            select author_id
+            from post
+            where id=#{post_id}
+        )
+    </select>
+    <select id="selectSumPost" resultType="java.lang.Integer">
+        select count(*)
+from post
+where author_id=#{author_id}
+    </select>
+    <select id="selectSumView" resultType="java.lang.Integer">
+        select sum(view_counts)
+        from post
+        where author_id=#{author_id}
+    </select>
+    <select id="selectSumGood" resultType="java.lang.Integer">
+        select sum(up_counts)
+        from post
+        where author_id=#{author_id}
+    </select>
+    <select id="selectAllComments" resultType="com.javaclimb.jxnu.domain.Comments">
+        select *
+       from comments
+      where post_id=#{post_id}
+    </select>
+    <select id="findUserByID" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+from users
+where id=#{id}
+    </select>
+    <select id="selectAllComments_next" resultType="com.javaclimb.jxnu.domain.Comments_next">
+        select *
+from comments_next
+where comments_id =#{comments_id}
+    </select>
+    <select id="selectPostByID" resultType="com.javaclimb.jxnu.domain.Post">
+        select *
+  from post
+where id =#{post_id}
+    </select>
+
+    <select id="selectSumComment" resultType="java.lang.Integer">
+        select sum(comment_counts)
+        from post
+        where author_id=#{author_id}
+    </select>
+
+
+    <select id="selectSum" resultType="map">
+        select sum(up_counts) as sumup_counts,sum(comment_counts) as sumcomment_counts,sum(view_counts) as sumview_counts,count(*) as count
+        from post
+        where author_id=#{author_id}
+    </select>
+
+    <select id="selectSumByTime" resultType="map">
+        select sum(up_counts) as sumup_counts,sum(comment_counts) as sumcomment_counts,sum(view_counts) as sumview_counts,count(*) as count
+        from post
+        where author_id=#{author_id} and create_time between #{startTime} and #{endTime}
+    </select>
+</mapper>

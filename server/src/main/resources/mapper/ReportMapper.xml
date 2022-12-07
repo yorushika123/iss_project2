@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.jxnu.dao.ReportMapper">
+    <insert id="addReport">
+        INSERT INTO report(report_name,reported_name,report_reason,reported_content,report_id,reported_id,progress,comments_id)
+        VALUES (#{report_name},#{reported_name},#{report_reason},#{reported_content},#{report_id},#{reported_id},#{progress},#{comments_id})
+    </insert>
+
+    <select id="findAllReport" resultType="map">
+        SELECT  DATE_FORMAT(report_time,'%Y-%m-%d %H:%i:%s')report_time,report.*,s1.username as username1,s2.username as username2
+        FROM report,users s1,users s2
+        where report.report_id=s1.id and report.reported_id=s2.id
+        ORDER BY report_time desc
+    </select>
+
+    <select id="updateReport" resultType="map">
+       update report
+       set progress=1
+       where id=#{id}
+    </select>
+
+    <select id="select" resultType="map">
+        SELECT DATE_FORMAT(report_time,'%Y-%m-%d %H:%i:%s')report_time,report.*,s1.username as username1,s2.username as username2
+        FROM report,users s1,users s2
+        <where>
+        <if test="progress!=null and progress!='' ">
+            and  progress=#{progress}
+        </if>
+        <if test="report_name!=null">
+            and s1.username like concat('%',#{report_name},'%')
+        </if>
+        <if test="reported_name!=null">
+            and s2.username like concat('%',#{reported_name},'%')
+        </if>
+            and report.report_id=s1.id and report.reported_id=s2.id
+        </where>
+
+        <if test="sort!=null and sort=='倒序' ">
+             order by report_time desc
+        </if>
+
+        <if test="sort!=null and sort=='正序' ">
+            order by report_time
+        </if>
+    </select>
+
+
+    <delete id="deleteComment">
+        delete from comments
+        where id=#{comment_id}
+    </delete>
+
+    <delete id="deleteComment_next">
+        delete from comments_next
+        where comments_id=#{comment_id}
+    </delete>
+</mapper>

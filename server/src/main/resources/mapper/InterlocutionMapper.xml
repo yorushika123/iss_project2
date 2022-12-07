@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javaclimb.jxnu.dao.InterlocutionMapper">
+    <insert id="addInterlocution">
+        INSERT INTO interlocution(creater_name,experts_name,question_content,answer_content,qid,create_time,answer_time,creater_id,experts_id)
+        VALUES (#{creater_name},#{experts_name},#{question_content},#{answer_content},#{qid},#{create_time},#{answer_time},#{creater_id},#{experts_id})
+    </insert>
+    <delete id="deleteByid">
+        delete from interlocution
+        where id = #{id}
+    </delete>
+
+    <select id="findInterlocution" resultType="map">
+        select DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s')create_time,users.avatar,users.username,interlocution.*
+        from users,interlocution
+        where users.id=interlocution.creater_id and experts_id=#{experts_id} and users.avatar in(
+                select users.avatar
+                from  users
+                where creater_id in(
+                    select  creater_id
+                    from interlocution
+                    where experts_id=#{experts_id}
+                    )
+            )
+       order by create_time desc
+    </select>
+
+
+    <select id="findInterlocution2" resultType="map">
+        select DATE_FORMAT(answer_time,'%Y-%m-%d %H:%i:%s')answer_time,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s')create_time,users.avatar,users.username,interlocution.*
+        from users,interlocution
+        where users.id=interlocution.experts_id and creater_id=#{creater_id} and users.avatar in(
+            select users.avatar
+            from  users
+            where experts_id in(
+                select  experts_id
+                from interlocution
+                where creater_id=#{creater_id}
+            )
+        )
+        order by answer_time desc
+    </select>
+
+    <select id="findInterlocutionexperts" resultType="map">
+        select DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s')create_time,users.avatar,interlocution.*
+        from users,interlocution
+        where  experts_id=#{experts_id} and users.id=interlocution.experts_id
+    </select>
+
+    <select id="findInterlocutioncreater" resultType="map">
+        select DATE_FORMAT(answer_time,'%Y-%m-%d %H:%i:%s')answer_time,users.avatar,interlocution.*
+        from users,interlocution
+        where  creater_id=#{creater_id} and users.id=interlocution.creater_id
+    </select>
+
+    <select id="findAllInter" resultType="com.javaclimb.jxnu.domain.Interlocution">
+        select * from interlocution
+    </select>
+
+    <update id="updateInterlocution">
+     update interlocution
+     set answer_content=#{answer_content},answer_time=#{answer_time}
+     where id=#{id}
+    </update>
+
+    <select id="findCreaterID" resultType="com.javaclimb.jxnu.domain.User">
+        select *
+        from users
+        where id in(
+            select creater_id
+            from interlocution
+            where id=#{creater_id}
+        )
+    </select>
+
+    <select id="findBYID" resultType="com.javaclimb.jxnu.domain.Interlocution">
+        select *
+        from interlocution
+        where id =#{id}
+    </select>
+
+    <delete id="deleteInterlocution">
+        delete from interlocution
+         where id=#{id}
+    </delete>
+
+    <select id="selectSumInterlocutionBYTime" resultType="java.lang.Integer">
+        SELECT count(*)
+        from interlocution
+        where creater_id=#{creater_id} and create_time between #{startTime} and #{endTime}
+    </select>
+</mapper>

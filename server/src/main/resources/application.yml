@@ -1,0 +1,16 @@
+#server:
+#  port: 8888
+#
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: 042688
+#    url: jdbc:mysql://127.0.0.1:3306/iss-jnu-edu
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.jnu.domain
+#
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
