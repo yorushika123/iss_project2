@@ -43,7 +43,7 @@
   </el-dialog>
 
 
-  <div v-for="item in replay">
+  <div v-for="item in replay.slice((currentPage-1)*pageSize,currentPage*pageSize)">
     <div class="message" >
       <div v-if="item.answer_content"><img class="img1" :src=item.avatar></div>
       <div>
@@ -65,7 +65,15 @@
       </div>
     </div>
   </div>
-
+  <el-pagination align='center'
+                 @size-change="handleSizeChange"
+                 @current-change="handleCurrentChange"
+                 :current-page="currentPage"
+                 :page-sizes="[1,3,5,10,20]"
+                 :page-size="pageSize"
+                 layout="total, sizes, prev, pager, next, jumper"
+                 :total="replay.length">
+  </el-pagination>
 
   <el-table
     @row-click="openDetails"
@@ -108,6 +116,9 @@ export default {
   components: {Header},
   data() {
     return {
+      currentPage:1,
+      totalCount:0,
+      pageSize:10,
       create_time:'',
       users:[],
       username:"",
@@ -126,6 +137,16 @@ export default {
     }
   },
   methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+    },
     watch(contents) {
       this.content = contents;
     },

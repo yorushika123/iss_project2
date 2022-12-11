@@ -41,4 +41,17 @@
     <delete id="deleteComments">
         delete from comments where post_id = #{post_id}
     </delete>
+
+
+    <select id="selectSumCommentsBYTime" resultType="java.lang.Integer">
+        SELECT count(*)
+        from Comments
+        where user_id=#{user_id}  and create_time between #{startTime} and #{endTime}
+    </select>
+
+    <select id="selectSumComments_nextBYTime" resultType="java.lang.Integer">
+        SELECT count(*)
+        from Comments_next
+        where user_id=#{user_id}  and create_time between #{startTime} and #{endTime}
+    </select>
 </mapper>

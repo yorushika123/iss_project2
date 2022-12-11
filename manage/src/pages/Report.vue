@@ -42,7 +42,7 @@
     <span slot="footer" class="dialog-footer">
       <el-button  type="primary" @click="dialogVisible = false" v-on:click="">不处理</el-button>
       <el-button  type="warning" @click="dialogVisible = false" v-on:click="dispose();deletecomment()">删除</el-button>
-      <el-button  type="danger" @click="dialogVisible = false" v-on:click="dispose()">删除并禁言用户</el-button>
+      <el-button  type="danger" @click="ifjingyan=true;dialogVisible = false" v-on:click="dispose();deletecomment()">删除并禁言用户</el-button>
   </span>
   </el-dialog>
 
@@ -86,7 +86,7 @@
       <el-button
                  size="mini"
                  type="warning"
-                 @click="dialogVisible=true;getreported_content(scope.row.reported_content);getID(scope.row.id);getcommentid(scope.row.comments_id)">查看详情</el-button>
+                 @click="dialogVisible=true;getreported_content(scope.row.reported_content);getID(scope.row.id);getcommentid(scope.row.comments_id);getreportedid(scope.row.reported_id)">查看详情</el-button>
 <!--       <i v-if="scope.row.progress===1" class="el-icon-success" style="font-size: 25px;color: #10dc6f"></i>-->
 <!--      <el-button-->
 <!--        size="mini"-->
@@ -120,6 +120,8 @@ export default {
   name: "Report",
   data() {
     return {
+      ifjingyan:false,
+      reported_id:'',
       report: [],
       currentPage:1,
       totalCount:0,
@@ -142,6 +144,9 @@ export default {
     resetForm() {
       this.$refs.ReportFormRef.resetFields()
       this.findALLReport()
+    },
+    getreportedid(iid){
+      this.reported_id=iid;
     },
     getID(iid){
       this.id=iid;
@@ -204,6 +209,17 @@ export default {
           alert(res.data.msg);
         }
       })
+      if(this.ifjingyan==true){
+        this.$http.post('http://localhost:8888/Report/changestate',
+          {"id": this.reported_id},
+          {emulateJSON: true}
+        ).then(function (res) {
+          if (res.data.code == 200) {
+            alert(res.data.msg);
+            this.ifjingyan=false;
+          }
+        })
+      }
       this.$router.go(0);
     },
     select(){

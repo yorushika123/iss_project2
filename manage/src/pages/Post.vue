@@ -60,7 +60,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="deletePost(scope.row.post_title)">删除</el-button>
+            @click="deletePost(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,6 +95,7 @@ export default {
         sort:'倒序'
       },
       selectPost:"",
+      id:'',
       Posts:[],
     }
   },
@@ -152,15 +153,15 @@ export default {
         this.Posts = res.data.data;
       })
     },
-    deletePost(post_title){
+    deletePost(iid){
       this.$confirm('是否确认删除该帖子?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.PostsForm.post_title = post_title;
-        this.$http.post('http://localhost:8888/Post/deletePostByTitle',
-          {"post_title": this.PostsForm.post_title},
+        this.id = iid;
+        this.$http.post('http://localhost:8888/Post/deletePostByID',
+          {"id": this.id},
           {emulateJSON: true}
         ).then(function (res) {
           if (res.data.code == 200) {

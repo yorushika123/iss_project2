@@ -15,12 +15,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ZhiShiApplicationTests {
     @Autowired
-     UserMapper userMapper;
+    PostMapper postMapper;
     @Test
     void contextLoads() {
-        String password = "123";
-        String passwordMd5 = MD5Utils.MD5Encode(password, "UTF-8");
-        System.out.println(passwordMd5);
+        int startmonth=3;
+        int endmonth=7;
+        String s1="'2022-";
+        String s2="-01'";
+        String s3="-30'";
+        String startmonth1=s1+startmonth+s2;
+       String endmonth1=s1+startmonth+s3;
+        System.out.println(startmonth1);
+        System.out.println(endmonth1);
+        int author_id=17;
+        int[] x=new int[12];
+        for(int i=startmonth;i<endmonth;i++)
+        {
+            x[i-1]=postMapper.selectsumpostmonth123(author_id,startmonth1,endmonth1);
+            System.out.println(x[i-1]);
+        }
     }
     }
 

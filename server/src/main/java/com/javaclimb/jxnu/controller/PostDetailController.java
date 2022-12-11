@@ -114,8 +114,8 @@ public class PostDetailController {
 public Result Good( @RequestBody Post post){
     System.out.println(post.getId());
     Post post2 =postMapper.selectPostByID(post.getId());
-  int sum =  post2.getUp_counts()+post.getUp_counts();
-  postMapper.UpdateGood(post.getId(),sum);
+    int sum =  post2.getUp_counts()+post.getUp_counts();
+    postMapper.UpdateGood(post.getId(),sum);
     return new Result(Code.SUCCESS,"点赞成功");
 }
 

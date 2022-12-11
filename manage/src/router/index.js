@@ -18,9 +18,21 @@ import PostDetail from "../pages/postDetail"
 import MyMessage from "../pages/MyMessage";
 import Report from "../pages/Report";
 import CommentList from "../pages/CommentList";
+import myhome from "../pages/myhome";
+import myhome1 from "../pages/myhome1";
 Vue.use(Router)
 export default new Router({
   routes: [
+    {
+      path: '/myhome1',
+      name: 'myhome1',
+      component: myhome1
+    },
+    {
+      path: '/myhome',
+      name: 'myhome',
+      component: myhome
+    },
     {
       path: '/PostDetail',
       name: 'PostDetail',

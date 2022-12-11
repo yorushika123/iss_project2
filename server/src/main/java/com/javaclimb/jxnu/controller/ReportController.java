@@ -71,4 +71,10 @@ public class ReportController {
 
     }
 
+    @RequestMapping("/changestate")
+    public Result changestate(HttpServletRequest request) {
+       int id=Integer.parseInt(request.getParameter("id"));
+        reportMapper.changestate(id);
+        return new Result(Code.SUCCESS, "禁言成功");
+    }
 }

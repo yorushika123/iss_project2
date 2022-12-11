@@ -67,11 +67,11 @@
             <el-button v-if="scope.row.state===0"
                        size="mini"
                        type="warning"
-                       @click="changeState( scope.row.username)">禁言</el-button>
+                       @click="changeState(scope.row.username)">禁言</el-button>
             <el-button v-if="scope.row.state===1"
                        size="mini"
                        type="success"
-                       @click="changeState2( scope.row.username)">取消禁言</el-button>
+                       @click="changeState2(scope.row.username)">取消禁言</el-button>
 
             <el-button
                        size="mini"

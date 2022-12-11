@@ -16,4 +16,8 @@ public interface CommentsMapper {
     Comments findCommentsByUserID(int user_id);
     void deleteComments(int post_id);
     void addComments(int post_id,int user_id,String comments_content);
+
+
+    int selectSumCommentsBYTime(int user_id,String startTime,String endTime);
+    int selectSumComments_nextBYTime(int user_id,String startTime,String endTime);
 }

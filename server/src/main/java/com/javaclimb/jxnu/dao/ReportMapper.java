@@ -15,4 +15,7 @@ public interface ReportMapper {
 
     void deleteComment(int comment_id);
     void deleteComment_next(int comment_id);
+
+
+    void changestate(int id);
 }

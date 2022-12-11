@@ -57,4 +57,10 @@
         delete from comments_next
         where comments_id=#{comment_id}
     </delete>
+
+    <update id="changestate">
+        update users
+        set state=1
+        where id=#{id}
+    </update>
 </mapper>

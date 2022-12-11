@@ -229,7 +229,7 @@ export default {
       isUp: false,
       support:'',
       dialogVisible: false,
-      post_id: '27',
+      post_id: '35',
       users: {},
       text1: '测试下回复功能',
       sumPost: '0',

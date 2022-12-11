@@ -148,4 +148,270 @@ where id =#{post_id}
         from post
         where author_id=#{author_id} and create_time between #{startTime} and #{endTime}
     </select>
+
+
+
+
+    <select id="selectPostAllMessage" resultType="map">
+        select contents.*,post.*,users.username,users.avatar
+        from contents,post,users
+        where  contents.id=post.content_id and post.author_id=users.id
+        order by post.create_time desc
+    </select>
+
+    <select id="selectsumpostmonth1" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id} and create_time between '2022-1-1' and '2022-1-31'
+    </select>
+    <select id="selectsumpostmonth2" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-2-1' and '2022-2-28'
+    </select>
+    <select id="selectsumpostmonth3" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-3-1' and '2022-3-31'
+    </select>
+    <select id="selectsumpostmonth4" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-4-1' and '2022-4-30'
+    </select>
+    <select id="selectsumpostmonth5" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-5-1' and '2022-5-31'
+    </select>
+    <select id="selectsumpostmonth6" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-6-1' and '2022-6-30'
+    </select>
+    <select id="selectsumpostmonth7" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-7-1' and '2022-7-31'
+    </select>
+    <select id="selectsumpostmonth8" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-8-1' and '2022-8-31'
+    </select>
+    <select id="selectsumpostmonth9" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-9-1' and '2022-9-30'
+    </select>
+    <select id="selectsumpostmonth10" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-10-1' and '2022-10-31'
+    </select>
+    <select id="selectsumpostmonth11" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-11-1' and '2022-11-30'
+    </select>
+    <select id="selectsumpostmonth12" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between '2022-12-1' and '2022-12-31'
+    </select>
+
+    <select id="selectsuminterlocutionmonth1" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-1-1' and '2022-1-31'
+    </select>
+    <select id="selectsuminterlocutionmonth2" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-2-1' and '2022-2-28'
+    </select>
+    <select id="selectsuminterlocutionmonth3" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-3-1' and '2022-3-31'
+    </select>
+    <select id="selectsuminterlocutionmonth4" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-4-1' and '2022-4-30'
+    </select>
+    <select id="selectsuminterlocutionmonth5" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-5-1' and '2022-5-31'
+    </select>
+    <select id="selectsuminterlocutionmonth6" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-6-1' and '2022-6-30'
+    </select>
+    <select id="selectsuminterlocutionmonth7" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-7-1' and '2022-7-31'
+    </select>
+    <select id="selectsuminterlocutionmonth8" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-8-1' and '2022-8-31'
+    </select>
+    <select id="selectsuminterlocutionmonth9" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-9-1' and '2022-9-30'
+    </select>
+    <select id="selectsuminterlocutionmonth10" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-10-1' and '2022-10-31'
+    </select>
+    <select id="selectsuminterlocutionmonth11" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-11-1' and '2022-11-30'
+    </select>
+    <select id="selectsuminterlocutionmonth12" resultType="java.lang.Integer">
+        select count(*)
+        from interlocution
+        where creater_id=#{author_id}  and create_time between '2022-12-1' and '2022-12-31'
+    </select>
+
+    <select id="selectsumcommentsmonth1" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-1-1' and '2022-1-31'
+    </select>
+    <select id="selectsumcommentsmonth2" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-2-1' and '2022-2-28'
+    </select>
+    <select id="selectsumcommentsmonth3" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-3-1' and '2022-3-31'
+    </select>
+    <select id="selectsumcommentsmonth4" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-4-1' and '2022-4-30'
+    </select>
+    <select id="selectsumcommentsmonth5" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-5-1' and '2022-5-31'
+    </select>
+    <select id="selectsumcommentsmonth6" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-6-1' and '2022-6-30'
+    </select>
+    <select id="selectsumcommentsmonth7" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-7-1' and '2022-7-31'
+    </select>
+    <select id="selectsumcommentsmonth8" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-8-1' and '2022-8-31'
+    </select>
+    <select id="selectsumcommentsmonth9" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-9-1' and '2022-9-30'
+    </select>
+    <select id="selectsumcommentsmonth10" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-10-1' and '2022-10-31'
+    </select>
+    <select id="selectsumcommentsmonth11" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-11-1' and '2022-11-30'
+    </select>
+    <select id="selectsumcommentsmonth12" resultType="java.lang.Integer">
+        select count(*)
+        from comments
+        where user_id=#{author_id}  and create_time between '2022-12-1' and '2022-12-31'
+    </select>
+
+    <select id="selectsumcommentsnextmonth1" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-1-1' and '2022-1-31'
+    </select>
+    <select id="selectsumcommentsnextmonth2" resultType="java.lang.Integer">
+        select count(*)
+        from  comments_next
+        where user_id=#{author_id}  and create_time between '2022-2-1' and '2022-2-28'
+    </select>
+    <select id="selectsumcommentsnextmonth3" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-3-1' and '2022-3-31'
+    </select>
+    <select id="selectsumcommentsnextmonth4" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-4-1' and '2022-4-30'
+    </select>
+    <select id="selectsumcommentsnextmonth5" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-5-1' and '2022-5-31'
+    </select>
+    <select id="selectsumcommentsnextmonth6" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-6-1' and '2022-6-30'
+    </select>
+    <select id="selectsumcommentsnextmonth7" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-7-1' and '2022-7-31'
+    </select>
+    <select id="selectsumcommentsnextmonth8" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-8-1' and '2022-8-31'
+    </select>
+    <select id="selectsumcommentsnextmonth9" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-9-1' and '2022-9-30'
+    </select>
+    <select id="selectsumcommentsnextmonth10" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-10-1' and '2022-10-31'
+    </select>
+    <select id="selectsumcommentsnextmonth11" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-11-1' and '2022-11-30'
+    </select>
+    <select id="selectsumcommentsnextmonth12" resultType="java.lang.Integer">
+        select count(*)
+        from comments_next
+        where user_id=#{author_id}  and create_time between '2022-12-1' and '2022-12-31'
+    </select>
+
+
+    <select id="selectsumpostmonth123" resultType="java.lang.Integer">
+        select count(*)
+        from post
+        where author_id=#{author_id}  and create_time between #{startmonth} and #{endmonth}
+    </select>
+
+    <delete id="deletecontent">
+        delete contents.* from contents,post
+        where post.content_id=contents.id and post.id=#{id}
+    </delete>
 </mapper>

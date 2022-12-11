@@ -72,4 +72,19 @@ public class CommentsController {
     }
 
 
+
+
+
+
+    @RequestMapping("/selectSumCommentsBYTime")
+    public Result selectSumCommentsBYTime(HttpServletRequest request) {
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
+        int x=commentsMapper.selectSumCommentsBYTime(user_id,startTime,endTime);
+        int y=commentsMapper.selectSumComments_nextBYTime(user_id,startTime,endTime);
+        return new Result(Code.SUCCESS, "查找成功", x+y);
+    }
+
+
 }

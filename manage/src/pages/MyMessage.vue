@@ -43,8 +43,8 @@
   </span>
     </el-dialog>
 
-    <div v-for="(item,index) in message" :key="index">
-      <div class="message">
+    <div v-for="(item,index) in message.slice((currentPage-1)*pageSize,currentPage*pageSize)" :key="index">
+      <div class="message" >
         <div><img class="img1" :src=item.avatar></div>
          <div>
           <div style="margin-left: 20px"><strong style="color: #343333">{{item.username}}</strong>&nbsp;&nbsp;&nbsp;向你发起提问</div>
@@ -68,7 +68,18 @@
          </div>
       </div>
     </div>
-    </div>
+
+    <el-pagination align='center'
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :current-page="currentPage"
+                   :page-sizes="[1,3,5,10,20]"
+                   :page-size="pageSize"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="message.length">
+    </el-pagination>
+
+  </div>
 </template>
 
 <script>
@@ -81,6 +92,10 @@ export default {
   components: {Header},
   data(){
     return{
+      currentPage:1,
+      totalCount:0,
+      pageSize:10,
+
         message:[],
         users:[],
         // dialogVisible: false,
@@ -98,6 +113,16 @@ export default {
     }
   },
   methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.currentPage = val;
+    },
     isShow(index) {
       let a = this.$refs.show[index]		//	通过下标找到对应同级节点
       if (a.getAttribute('class') === 'active') {
